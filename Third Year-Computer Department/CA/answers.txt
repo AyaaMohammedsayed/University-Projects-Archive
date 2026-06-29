@@ -1,0 +1,69 @@
+//for run
+
+cd /mnt/c/Users/Aya\ Mohamed/Downloads/simplesim-3.0-master/simplesim-3.0-master
+
+-->How often are branches executed in your programs?
+-->Bimod/static/2lev
+bimod/2lev vs static --> the number of direction and address prediction will be identical in static unlike in the other because there is also address prediction alogorithm in the other 2 in addition to branch prediction
+
+Total branch updates: 95,587
+
+This represents the total number of branch instructions executed and updated in the branch predictor
+Types of branches executed:
+
+Regular conditional branches: 89,736 (calculated as: total updates - JR branches = 95,587 - 5,851)
+Jump Register (JR) instructions: 5,851
+Bimodal branch prediction performance:
+
+Overall direction prediction rate: 94.21% (90,057 / 95,587)
+Address prediction rate: 94.05% (89,901 / 95,587)
+Misses: only 5.79% (5,530 / 95,587)
+Return Address Stack (RAS) utilization: 5,600 predictions with 99.86% accuracy
+
+- imp => branch frequency  sim_IPB = sim_num_branches / sim_num_insn = 95587 / 401998 ≈ 0.2378
+ده معناه إنه تقريبًا فرع واحد بيتم تنفيذه لكل 1 / 0.2378 ≈ 4.2 تعليمة.
+- and this is the same as the sim_IPB which is 4.2056 so there is no big difference in our case here 
+
+-->How does this compare with the “average” frequency of every 4-6 instructions?
+the average in our case is 4.2056
+
+-- branch characterization 
+الفروع الأمامية: من إجمالي 84702 فرع أمامي، تم أخذ 56789 فرعًا (حوالي 67.05%) ولم يتم أخذ 27913 فرعًا (حوالي 32.95%). هذا يشير إلى أن الفروع الأمامية في هذا البرنامج يتم أخذها في أغلب الأحيان، وهو ما يتعارض مع الافتراض التقليدي بأن الفروع الأمامية غالباً لا تؤخذ.
+
+الفروع الخلفية: من إجمالي 17281 فرعًا خلفيًا، تم أخذ 9198 فرعًا (حوالي 53.23%) ولم يتم أخذ 8083 فرعًا (حوالي 46.77%). هذا يدل على أن الفروع الخلفية في هذا البرنامج يتم أخذها بالكاد في أغلب الأحيان، والنسبة ليست مرتفعة كما هو مفترض في القاعدة التقليدية.
+
+نتائج Branch Characterization لا تدعم بشكل قوي استخدام نظام التنبؤ الثابت التقليدي (الرجوع يؤخذ، التقدم لا يؤخذ) لهذا البرنامج. نسبة أخذ الفروع الأمامية عالية، ونسبة أخذ الفروع الخلفية ليست مرتفعة كما هو متوقع. هذا يشير إلى أن سلوك الفروع في هذا البرنامج يعتمد على عوامل أكثر تعقيدًا من مجرد اتجاه الفرع، وأن متنبئ فروع ديناميكي سيكون أكثر فعالية في تتبع هذا السلوك وتحقيق دقة تنبؤ أعلى.
+
+
+
+-- Prediction Accuracy
+Record the number of correct predictions for all branch prediction schemes. Do the results for the static scheme confirm your branch characterization results?
+2-level: دقة 96.44%.
+Bimodal: دقة 94.21%.
+static  دقة 36.89%.
+المهم ان ال static لا يتوافق عندى 
+لان عندى الفروع الفوروارد اللى اتاخدت عالية 67.05 ونسبة الفروع الخلفية اللى اتاخدت 53.23 وده بيختلف عن توقعات ال
+static predictions rule
+and the static prediction 36.89 contradicts this. 
+
+-- best scheme in our code is 2lev bec: 
+السبب: المتنبئات الديناميكية زي الـ 2
+-level والـ bimodal تتفوق على المتنبئات الثابتة لأنها تتعلم سلوك الفروع أثناء التنفيذ وتتكيف معه. المتنبئ الـ 2-level بشكل خاص بيستخدم تاريخ أطول لتنفيذ الفروع، مما يجعله أفضل في توقع الأنماط المعقدة في سلوك الفروع زي اللي موجودة في برنامجك بسبب استخدام متغير الـ toggle والشروط داخل الحلقات التكرارية. المتنبئ الـ bimodal بيستخدم تاريخ أقصر (آخر نتيجة للفرع)، وبالتالي دقته أقل شوية. المتنبئات الثابتة (بما فيها قاعدتنا "الرجوع يؤخذ، التقدم لا يؤخذ") تفشل لأنها لا تأخذ في الاعتبار السلوك الفعلي للبرنامج.
+
+
+It's calculated from committed instructions: Only instructions that complete execution (not speculative ones that get flushed) are counted //that got out from the ROB , the ones that mispredict gets flushed and does not leave the ROB so it doesn't count
+
+
+--> Is there a difference between the number of instructions fetched and the number of
+instructions committed? Why or why not?
+yes, because there is some instruction that get fetched but flushed before entering the execution pipeline due to early branch misprediction detection. also there is difference between the commited and executed due to some branch is mispredicted and gets flushed in the ROB and it never get commited.
+
+
+--> Is there a limit to the number of useful history bits, or is more history always better?
+Perform simulations to determine what the situation really is. What do you think explains
+your data?
+------------------------------------------------------------------------------------------------------
+./sim-outorder -fetch:ifqsize 1 -decode:width 1 -issue:width 1 -issue:inorder true -res:ialu 1 -res:imult 1 -res:memport 1 -res:fpalu 1 -res:fpmult 1 -bpred 2lev -bpred:2lev 1 4096 11 1 -cache:dl1 dl1:128:32:2:l -cache:il1 il1:128:32:2:l -cache:dl2 ul2:8192:32:1:l -tlb:itlb itlb:16:4096:4:l -tlb:dtlb dtlb:16:4096:8:l -redir:sim sim-2lev-hist16.txt ./tests-pisa/bin.little/test.ss 3
+
+-->1 4096 11 1 :: 1 is the num of registers , 4096 is the number of entries in the history table, 11 is the history bit , 1 is that we enable xor. the default is 1 1024 8 0
+there is a limit in the history bits eg. 1024 11--> 1024 = 2^10 and we have 11 so it 2^11 is bigger than the history table. even we increase bits there will be no improvement in the number of misses

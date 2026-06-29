@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Analytics Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #94a3b8;
+            --sidebar-active: #3b82f6;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .menu-item.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--sidebar-active);
+            border-left: 3px solid var(--sidebar-active);
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        .date-range {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+     
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+      
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kpi-title {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+       
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+    
+        .chart-container {
+            width: 100%;
+            min-height: 300px;
+            height: auto;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border: 2px dashed #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .chart-container img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+        }
+
+      
+        .span-2 {
+            grid-column: span 2;
+        }
+
+        .span-1 {
+            grid-column: span 1;
+        }
+
+       
+        .analysis-container {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .clusters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .cluster-box {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: 0.3s;
+        }
+
+        .cluster-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--sidebar-active);
+        }
+
+        .cluster-title {
+            color: var(--sidebar-active);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+      
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .span-2 {
+                grid-column: span 1;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fas fa-chart-pie"></i> Customer Analytics
+        </div>
+        <div class="menu-item active" onclick="switchTab(this, 'dashboard-view')">
+            <i class="fas fa-th-large"></i> Dashboard
+        </div>
+        <div class="menu-item" onclick="switchTab(this, 'segmentation-view')">
+            <i class="fas fa-users"></i> Segmentation
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <header class="header">
+            <div>
+                <h2 id="page-title">Dashboard Overview</h2>
+                <p style="color: var(--text-gray);">Customer behavior insights & trends</p>
+            </div>
+            <div class="date-range">
+                <i class="far fa-calendar-alt"></i> Data Updated: Dec 2025
+            </div>
+        </header>
+
+        <div id="dashboard-view" class="view-section active-view">
+
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-title">Total Customers</div>
+                    <div class="kpi-value">4,334</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <div class="card span-2">
+                    <div class="card-header">
+                        <div class="card-title">Top 10 Customers</div>
+                    </div>
+                    <div class="chart-container" style="min-height: 400px;">
+                        <img src="customer.png" alt="Country Chart">
+                    </div>
+                </div>
+
+                <div class="card span-1">
+                    <div class="card-header">
+                        <div class="card-title">Monthly Activity Trends</div>
+                    </div>
+                    <div class="chart-container">
+                        <img src="month.png" alt="Monthly Chart">
+                    </div>
+                </div>
+
+                <div class="card span-1">
+                    <div class="card-header">
+                        <div class="card-title">Peak Hours Analysis</div>
+                    </div>
+                    <div class="chart-container">
+                        <img src="hour.png" alt="Hourly Chart">
+                    </div>
+                </div>
+
+                <div class="card span-1">
+                    <div class="card-header">
+                        <div class="card-title">Top 3 Countries</div>
+                    </div>
+                    <div class="chart-container">
+                        <img src="top 3.png" alt="Customers Chart">
+                    </div>
+                </div>
+
+                <div class="card span-1">
+                    <div class="card-header">
+                        <div class="card-title">Retention: One-time vs. Repeat</div>
+                    </div>
+                    <div class="chart-container">
+                        <img src="return.png" alt="Retention Chart">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="segmentation-view" class="view-section">
+            <div class="analysis-container">
+                <h3 style="font-size: 1.5rem; color: var(--text-dark); margin-bottom: 10px;">
+                    <i class="fas fa-lightbulb" style="color: #f59e0b;"></i> Customer Behavioural Analysis
+                </h3>
+                <p style="color: var(--text-gray); line-height: 1.6;">
+                    Deep dive into customer personas generated via DBSCAN Clustering.
+                </p>
+
+                <div class="clusters-grid">
+                    <div class="cluster-box">
+                        <div class="cluster-title"><i class="fas fa-seedling"></i> Cluster 0: "Active Low-Value"</div>
+                        <p style="color:#64748b; line-height:1.6;">
+                            <strong>Characteristics:</strong> Frequency very high, Monetary very low, Recency low,
+                            ReturnRate 12.5%, CancellationRate 32.5%
+                            <br><strong>Insight:</strong> Highly active but low value.
+                            <br><br><strong>Action:</strong> Monitor purchasing patterns, reduce returns/cancellations,
+                            educate customers
+                        </p>
+                    </div>
+
+                    <div class="cluster-box">
+                        <div class="cluster-title"><i class="fas fa-user-clock"></i> Cluster 1: "One-Time Buyers"</div>
+                        <p style="color:#64748b; line-height:1.6;">
+                            <strong>Characteristics:</strong> High Frequency, very low Monetary, Tenure = 1,
+                            CancellationRate 50%
+                            <br><strong>Insight:</strong> One-time buyers / trial customers
+                            <br><br><strong>Action:</strong> Target with retention campaigns, incentives to increase
+                            value and loyalty
+                        </p>
+                    </div>
+
+                    <div class="cluster-box">
+                        <div class="cluster-title"><i class="fas fa-shopping-bag"></i> Cluster 2: " Core Stable
+                            Customers"
+                        </div>
+                        <p style="color:#64748b; line-height:1.6;">
+                            <strong>Characteristics:</strong> Medium Frequency (107), medium Monetary (2.54), ReturnRate
+                            0%, CancellationRate 0%, Avg_Days_Between_Purchases = 45
+                            <br><strong>Insight:</strong> Stable core customers.
+                            <br><br><strong>Action:</strong> Maintain engagement, loyalty programs, cross-sell
+                            opportunities
+                        </p>
+                    </div>
+
+                    <div class="cluster-box">
+                        <div class="cluster-title"></i><i class="fas fa-crown"></i> Cluster 3: "High-Value VIPs"
+                        </div>
+                        <p style="color:#64748b; line-height:1.6;">
+                            <strong>Characteristics:</strong> Low Frequency (44) but high Monetary (8.54), Tenure long
+                            (240 days), High Unique Products (106), low Return & Cancellation
+                            <br><strong>Insight:</strong> High-value loyal / VIP customers
+                            <br><br><strong>Action:</strong> VIP offers, personalized marketing, reward loyalty,
+                            upsell/cross-sell
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(element, viewId) {
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            document.querySelectorAll('.view-section').forEach(section => section.classList.remove('active-view'));
+            document.getElementById(viewId).classList.add('active-view');
+
+            const titleMap = {
+                'dashboard-view': 'Dashboard Overview',
+                'segmentation-view': 'Segmentation Analysis',
+            };
+            document.getElementById('page-title').innerText = titleMap[viewId];
+        }
+    </script>
+</body>
+
+</html>
