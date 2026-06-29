@@ -1,0 +1,54 @@
+#Name : Aya Mohamed Sayed Hamed
+#Sec : 1
+#B.NO : 9
+#Programa 1 : F To C Converter
+
+
+
+################################################## Data Segment #################################################
+.data 
+hellomessage: .asciiz "Hello in F To C Temp _Example\n"
+number:        .asciiz  "Enter number\n"
+result:    .asciiz "The Result is \n"
+delta: .float 32.0
+scalar: .float 5.0
+another_scalar: .float 9.0
+ ################################################## Code Segment #################################################
+   .text
+   .globl main #Main function 
+   main: 
+  la $a0,hellomessage
+  li $v0,4
+  syscall
+  
+  la $a0,number
+  li $v0,4
+  syscall
+  
+  li $v0,6
+  syscall
+  
+
+  # Convert Fahrenheit to Celsius
+    l.s $f1, delta
+    l.s $f2, scalar
+    l.s $f3, another_scalar
+
+    sub.s $f0, $f0, $f1
+    mul.s $f0, $f0, $f2
+    div.s $f0, $f0, $f3
+
+  la $a0,result
+  li $v0 ,4
+  syscall
+  li $v0, 2
+  mov.s $f12, $f0 # Move contents of register $f0 to register $f12
+  syscall
+
+  
+  li $v0,10
+  syscall
+  
+  
+
+  

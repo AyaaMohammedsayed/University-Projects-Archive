@@ -1,0 +1,60 @@
+#Title: lab7  problem 2
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data
+prompt_n: .asciiz "Enter the number of elements: "
+prompt_array: .asciiz "Enter the array element: "
+newline: .asciiz "\n"
+####################################### Code segment ############################
+.text
+.globl main
+
+main:
+   
+    li $v0, 4
+    la $a0, prompt_n
+    syscall
+
+    
+    li $v0, 5
+    syscall
+    move $t0, $v0 
+    
+    li $v0, 9
+    move $a0, $t0  
+    syscall
+    move $a0, $v0  
+
+    
+    la $t1, prompt_array
+
+    move $a1, $t0  
+    jal read
+
+    # Exit program
+    li $v0, 10
+    syscall
+
+
+read:
+    li $t0, 0          
+    move $s0,$a0
+
+read_loop:
+    beq $t0, $a1, end_read 
+    li $v0, 4
+    move $a0, $t1
+    syscall
+
+
+    li $v0, 5
+    syscall
+    sw $v0, 0($s0)       
+
+    addi $s0, $s0, 4  
+    addi $t0, $t0, 1   
+    j read_loop
+
+end_read:
+    jr $ra            

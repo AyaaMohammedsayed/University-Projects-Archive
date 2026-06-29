@@ -1,0 +1,43 @@
+#Title: lab4  problem 2
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data
+prompt: .asciiz "Enter an integer: "
+result: .asciiz "Number of 1's in binary representation: "
+newline: .asciiz "\n"
+####################################### Code segment ############################
+.text
+.globl main
+
+main:
+    li $v0, 4               
+    la $a0, prompt
+    syscall
+
+    li $v0, 5               
+    syscall
+    move $t0, $v0           
+
+    li $t1, 0             
+
+count_ones_loop:
+    andi $t2, $t0, 1       
+    add $t1, $t1, $t2      
+    srl $t0, $t0, 1         
+    bnez $t0, count_ones_loop  
+
+    li $v0, 4              
+    la $a0, result
+    syscall
+
+    move $a0, $t1           
+    li $v0, 1          
+    syscall
+
+    li $v0, 4               
+    la $a0, newline
+    syscall
+
+    li $v0, 10              
+    syscall

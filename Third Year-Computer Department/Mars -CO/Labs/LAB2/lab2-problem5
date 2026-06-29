@@ -1,0 +1,48 @@
+
+#Author : Aya Mohamed sec:1 B.No :9
+##Title: lab2 intro to mars
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data 
+str1: .asciiz "Enter 1st number\n"
+str3: .asciiz "Enter  2nd number\n"
+str2: .asciiz "equal\n"
+str4: .asciiz "Not equal\n"
+####################################### Code segment ############################
+.text
+.globl main 
+main: 
+la $a0,str1
+li $v0,4
+syscall
+li $v0,5
+syscall
+move $s0,$v0
+
+la $a0,str3
+li $v0,4
+syscall
+li $v0,5
+syscall
+move $s1,$v0
+
+beq $s0,$s1,equal
+bne $s0,$s1,notequal
+
+equal:
+la $a0,str2
+li $v0,4
+syscall
+
+li $v0,10
+syscall
+
+
+notequal:
+la $a0,str4
+
+li $v0,4
+syscall
+
+li $v0,10
+syscall

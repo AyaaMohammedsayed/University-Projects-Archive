@@ -1,0 +1,10 @@
+#Title: lab5  problem 4
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data 
+arr1: .word 5:20 
+arr2: .half 7, -2, 8, -6 
+arr3: .space 100 
+str1: .asciiz "This is a message" 
+str2: .asciiz "Another important string"

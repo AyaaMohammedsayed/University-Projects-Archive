@@ -1,0 +1,62 @@
+#Name : Aya Mohamed Sayed Hamed
+#Sec : 1
+#B.NO : 9
+#Programa 1 : String copy_Example
+
+
+
+################################################## Data Segment #################################################
+.data 
+hellomessage: .asciiz "Hello in String copy _Example\n"
+string:        .asciiz  "Enter String \n"
+result:    .asciiz "The Result is \n"
+buffer1: .space 256   # Allocate space for the input string
+buffer2: .space 256   # Allocate space for the input string
+ ################################################## Code Segment #################################################
+   .text
+   .globl main #Main function 
+   main: 
+  la $a0,hellomessage
+  li $v0,4
+  syscall
+  
+  la $a0,string
+  li $v0,4
+  syscall
+  
+  li $v0,8
+    la $a0, buffer1     # load address of buffer
+    li $a1, 256         # maximum number of characters to read
+  syscall
+  la $a1,buffer2
+jal  stringcopy_function
+ 
+move $a0,$a1
+
+
+    # Print the string
+    li $v0, 4           # syscall code for print_string
+    la $a0, buffer1      # load address of buffer
+    syscall
+
+    # Exit program
+    li $v0, 10          # syscall code for exit
+    syscall
+  stringcopy_function:
+
+addi $sp, $sp, -4 # adjust stack for 1 item
+sw $s0, 0($sp) # save $s0
+add $s0, $zero, $zero # i = 0
+L1: add $t1, $s0, $a0 # addr of y[i] in $t1
+lbu $t2, 0($t1) # $t2 = y[i]
+add $t3, $s0, $a1 # addr of x[i] in $t3
+sb $t2, 0($t3) # x[i] = y[i]
+beq $t2, $zero, L2 # exit loop if y[i] == 0
+addi $s0, $s0, 1 # i = i + 1
+j L1 # next iteration of loop
+L2: lw $s0, 0($sp) # restore saved $s0
+addi $sp, $sp, 4 # pop 1 item from stack
+jr $ra # and return
+  
+
+  

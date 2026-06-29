@@ -1,0 +1,81 @@
+#Title: lab6  problem 4
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment #########################
+.data
+prompt_x: .asciiz "Enter the dividend (x): "
+prompt_y: .asciiz "Enter the divisor (y): "
+result_msg: .asciiz "Result of x / y: as integer "
+result_msg2: .asciiz "Result of x / y: as dicemal "
+newline: .asciiz "\n"
+####################################### Code segment ############################
+.text
+.globl main
+
+main:
+   
+    li $v0, 4
+    la $a0, prompt_x
+    syscall
+
+    
+    li $v0, 5
+    syscall
+    move $t0, $v0  
+
+  
+    li $v0, 4
+    la $a0, prompt_y
+    syscall
+
+    
+    li $v0, 5
+    syscall
+    move $t1, $v0  
+
+  
+    li $t2, 0  
+    li $t3, 0 
+    li $t4, 10  
+    li $t5, 8  
+
+    
+    div $t0, $t1 
+    mflo $t2  
+   add $t3,$t2,$0
+    mul $t3, $t3,100 
+    # Calculate fractional part
+    mul $t0, $t0,100 
+    div $t0, $t1  
+    mflo $t4 
+    sub $t4,$t4,$t3
+
+
+
+display_result:
+    # Print result message
+    li $v0, 4
+    la $a0, result_msg
+    syscall
+
+    # Print integer part
+    li $v0, 1
+    move $a0, $t2
+    syscall
+
+    # Print decimal point
+    li $v0, 11
+    li $a0, '.'
+    syscall
+
+    # Print fractional part
+    li $v0, 1
+    move $a0, $t4
+    syscall
+
+    # Print newline
+    li $v0, 4
+    la $a0, newline
+    syscall
+li $v0, 10
+    syscall

@@ -1,0 +1,81 @@
+#Name : Aya Mohamed Sayed Hamed
+#Sec : 1
+#B.NO : 9
+#Programa 1 : Leaf_Example
+
+
+
+################################################## Data Segment #################################################
+.data 
+hellomessage: .asciiz "Hello in Leaf _Example\n"
+number:        .asciiz  "Enter number\n"
+result:    .asciiz "The Result is \n"
+ ################################################## Code Segment #################################################
+   .text
+   .globl main #Main function 
+   main: 
+  la $a0,hellomessage
+  li $v0,4
+  syscall
+  
+  la $a0,number
+  li $v0,4
+  syscall
+  
+  li $v0,5
+  syscall
+  
+  move $s0,$v0
+  la $a0,number
+  li $v0,4
+  
+  syscall
+  li $v0,5
+  syscall
+  
+  move $s1,$v0
+  la $a0,number
+  li $v0,4
+  syscall
+  
+  li $v0,5
+  syscall
+  
+  move $s2,$v0
+  la $a0,number
+  li $v0,4
+  syscall
+  
+  li $v0,5
+  syscall
+  
+  move $s3,$v0
+  move $a0,$s0
+  move $a1,$s1
+  move $a2,$s2
+  move $a3,$s3
+jal   leaf_example
+  
+  la $a0,result
+  li $v0,4
+  syscall
+  
+  move $a0,$s0
+  li $v0,1
+  syscall
+  
+  li $v0,10
+  syscall
+  leaf_example:
+addi $sp, $sp, -4
+sw $s0, 0($sp)
+add $t0, $a0, $a1
+add $t1, $a2, $a3
+sub $s0, $t0, $t1
+add $v0, $s0, $zero
+lw $s0, 0($sp)
+addi $sp, $sp, 4
+jr $ra
+  
+
+  

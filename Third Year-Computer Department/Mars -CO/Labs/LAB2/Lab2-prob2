@@ -1,0 +1,27 @@
+#Author : Aya Mohamed sec:1 B.No :9
+##Title: lab2 intro to mars
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data 
+str1: .asciiz "Enter your number\n"
+str2: .asciiz "you entered\n"
+####################################### Code segment ############################
+.text
+.globl main 
+main: 
+la $a0,str1
+li $v0,4
+syscall
+li $v0,5
+syscall
+move $s0,$v0
+
+la $a0,str2
+li $v0,4
+syscall
+sll $s0,$s0,1
+move $a0,$s0
+li $v0,1
+syscall 
+li $v0,10
+syscall

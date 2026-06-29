@@ -1,0 +1,75 @@
+#Title: lab6  problem 5
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data
+prompt1: .asciiz "Enter first number: "
+prompt2: .asciiz "Enter second number: "
+result_msg: .asciiz "Result: "
+hi_msg: .asciiz "HI register: "
+lo_msg: .asciiz "LO register: "
+newline: .asciiz "\n"
+####################################### Code segment ############################
+.text
+.globl main
+
+main:
+    # Prompt for first number
+    li $v0, 4
+    la $a0, prompt1
+    syscall
+    li $v0, 5
+    syscall
+    move $t0, $v0
+
+    # Prompt for second number
+    li $v0, 4
+    la $a0, prompt2
+    syscall
+    li $v0, 5
+    syscall
+    move $t1, $v0
+
+    # Perform multiplication
+    multu $t0, $t1
+
+    # Print result message
+    li $v0, 4
+    la $a0, result_msg
+    syscall
+
+    # Print result (LO register)
+    li $v0, 1
+    mflo $a0
+    syscall
+    # Print newline
+    li $v0, 4
+    la $a0, newline
+    syscall
+    # Print HI register
+    li $v0, 4
+    la $a0, hi_msg
+    syscall
+    li $v0, 1
+    mfhi $a0
+    syscall
+    # Print newline
+    li $v0, 4
+    la $a0, newline
+    syscall
+    # Print LO register
+    li $v0, 4
+    la $a0, lo_msg
+    syscall
+    li $v0, 1
+    mflo $a0
+    syscall
+
+    # Print newline
+    li $v0, 4
+    la $a0, newline
+    syscall
+
+    # Exit program
+    li $v0, 10
+    syscall

@@ -1,0 +1,33 @@
+
+#Title: lab3  problem 6
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data 
+str1: .asciiz "Enter 1st number\n"
+str2: .asciiz " the number after multi by 24.5\n"
+
+str3: .asciiz "you entered\n"
+####################################### Code segment ############################
+.text
+.globl main 
+main: 
+la $a0,str1
+li $v0,4
+syscall
+li $v0,5
+syscall
+move $s0,$v0
+sll $s1,$s0,3
+sll $s2,$s0,4
+srl $s3,$s0,1
+add $s4,$s1,$s2
+add $s4,$s4,$s3
+la $a0,str2
+li $v0,4
+syscall
+move $a0,$s4
+li $v0,1
+syscall
+li $v0,10
+syscall

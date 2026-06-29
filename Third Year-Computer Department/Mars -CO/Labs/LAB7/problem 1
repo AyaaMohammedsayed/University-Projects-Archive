@@ -1,0 +1,50 @@
+#Title: lab7  problem 1
+#Author : Aya Mohamed sec:1 B.No :9
+#Author : Aya Mohamed sec:1 B.No :9
+####################################### Data segment ############################
+.data
+prompt: .asciiz "Enter a character: "
+is_lowercase: .asciiz " is a lowercase character.\n"
+is_not_lowercase: .asciiz " is not a lowercase character.\n"
+####################################### Code segment ############################
+.text
+.globl main
+
+main:
+    li $v0, 4
+    la $a0, prompt
+    syscall
+
+    li $v0, 12
+    syscall
+    move $t0, $v0
+
+    move $a0, $t0
+    jal islower
+
+    beq $v0, $zero, print_not_lowercase
+    li $v0, 4
+    la $a0, is_lowercase
+    syscall
+    j exit
+
+print_not_lowercase:
+    li $v0, 4
+    la $a0, is_not_lowercase
+    syscall
+
+exit:
+    li $v0, 10
+    syscall
+
+islower:
+    li $t1, 'a'
+    li $t2, 'z'
+    blt $a0, $t1, return_false
+    bgt $a0, $t2, return_false
+    li $v0, 1
+    jr $ra
+
+return_false:
+    li $v0, 0
+    jr $ra
