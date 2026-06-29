@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta data related to website -->
+  <meta charset="UTF-8">
+      <!-- reponsive -->
+  <meta name = "viewport" content = "width=device-width; initial-scale=1.0; maximum-scale">
+  <meta name="keywords" content="Trips,Beautifull places,Historical places">
+  <meta name="description" content="Travel website guide you to wonderfull places ,multiservese">
+  <!-- Title of our website-->
+  <title>Travel Village-BOOK FORM</title>
+  <!-- Our Css for homepage -->
+  <link rel="stylesheet" href="book.css">
+  <link rel="stylesheet" href="../Home/Home.css">
+
+  <!-- Fonts we use  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Kanit:wght@100;500&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+<!-- Our body -->
+<body class="register-body">
+    <header id="home">
+        <!-- Nav bar of register -->
+      <nav>
+            <!-- our logo -->
+          <img src="../images/Travel, tourism agency logo design template (1).png " alt=" TravelVillage">
+              <!-- our title of website -->
+          <h4>Travel Village</h4>
+             <!-- Links to our sections in website -->
+          <div>
+          <a  href="../Home/home.html" target="_blank">Home</a>
+          <a href="../Home/home.html#intro" target="_blank">Inro</a>
+          <a href="../Home/home.html#locations" target="_blank">Destination</a>
+          <a href="../contact/contact.html" target="_blank">Contact</a>
+          <a href="../Feedback/feedback.html" target="_blank">Feedback</a>
+          <a id="r" href="../Register/register.html" target="_blank">Register</a> 
+      </div>
+      </nav>
+      </header>
+      <!-- Form BOOK -->
+    <section class="registration">
+        <div class="register-form">
+            <h1>BOOK <span>Here</span></h1>
+            <form action="" method="post">
+
+            <input type="text" name="myname1" placeholder="Name" id="name" required>
+            <input type="email" name="myemail" placeholder="Email-Id" id="email" required>
+            <input type="phone" name="myphone" placeholder="Phone No." id="phonenum"  minlength="11" maxlength="11">
+            <input type="number" name="myage" placeholder="Age" id="age"   min="20" max="100" required>
+            <h4>Gender</h4>
+            <input type="radio" name="mygender" id="Gendermale" value="Male" required> Male &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+            <input type="radio" name="mygender" id="Genderfemale" value="Female"> Female
+            <h4>Departure</h4>
+            <input type="datetime-local" name="departuredate" id="Departure" required>
+            <h4>Return</h4>
+            <input type="datetime-local" name="returndate" id="Return" required>
+            <h4>Travel Destination</h4>
+            <input type="radio" name="td" id="Pyramids"> Pyramids &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="td" id="DAHAB"> DAHAB &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="td" id="Sinaa"> Sinaa &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="td" id="Luxor"> Luxor &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br>
+            <input type="radio" name="td" id="Alexandria"> Alexandria &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="td" id=" Old Egypt "> Old Egypt &nbsp; &nbsp; &nbsp; 
+            <input type="radio" name="td" id="NOBA"> NOBA &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="td" id="Siwaa"> Siwaa &nbsp; &nbsp; &nbsp;
+            <br> <br>
+            <h4>Package</h4>
+            <input type="radio" name="locations" id="Bronze" required> Bronze &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="locations" id="Silver"> Silver &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="locations" id="Gold"> Gold &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="locations" id="Platinum"> Platinum &nbsp; &nbsp; &nbsp;
+            <br> <br> 
+            <input type="checkbox" name="t&c"  checked required> I accept the Terms & Conditions.
+            <br> <br> 
+            <input type="submit" value="BOOK" name="submit" class="submitbtn">
+
+        </form>
+        </div>
+    </section>
+
+<!-- Footer of website -->
+<footer >
+        
+    <h2  >Abouts Us</h2>
+    <ul>
+     <li>   <a href="../locations/location.html"  target="_blank" style="color: white;">Destination</a></li>
+     <li> <a href="../contact/contact.html" target="_blank" style="color: white;">Contact</a></li>
+    <li> <a href="../Feedback/feedback.html" target="_blank" style=" color: white;">Feedback</a></li>
+  </ul>
+  <div class="Links " >
+    <h2  >Connect</h2>
+
+    
+     <div class="social">
+                <a href="https://www.facebook.com" target="_blank"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.instagram.com" target="_blank"><i class='bx bxl-instagram' ></i></a>
+                <a href="https://www.twitter.com" target="_blank"><i class='bx bxl-twitter' ></i></a>
+                <a href="https://www.linkedin.com" target="_blank"><i class='bx bxl-linkedin' ></i></a>
+                <a href="https://www.youtube.com" target="_blank"><i class='bx bxl-youtube' ></i></a>
+              
+            </div>
+  </div>    
+         <!-- Copy rights -->
+         <h4>Travel Village &copy;:2023</h4> <br>
+         <h4 style="margin-left: 30%;"> Made by BOSINA SAAD ,HABIBA AHMED ,AYA MOHAMED &copy;:2023</h4> 
+   </footer>
+    <!-- script section -->
+    <script src="https://smtpjs.com/v3/smtp.js">
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../BOOk/script.js"></script>
+
+
+
+
+</body>
+</html>
