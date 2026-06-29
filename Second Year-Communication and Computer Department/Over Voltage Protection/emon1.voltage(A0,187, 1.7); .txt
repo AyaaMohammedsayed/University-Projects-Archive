@@ -1,0 +1,3 @@
+emon1.voltage(A0,187, 1.7); 
+#include "EmonLib.h" 
+ emon1.calcVI(20,2000); // Calculate all. No.of half wavelengths (crossings), time-out
