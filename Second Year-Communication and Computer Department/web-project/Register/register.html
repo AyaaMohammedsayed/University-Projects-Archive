@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta data -->
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = "width=device-width; initial-scale=1.0; maximum-scale">
+    <!-- title of website -->
+    <title>Register</title>
+    <!-- style link -->
+    <link rel="stylesheet" href="register.css">
+    <!-- Our fonts we use -->
+    <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Kanit:wght@100;500&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+</head>
+<body>
+    <header id="home">
+          <!-- Nav bar of register -->
+        <nav>
+              <!-- our logo -->
+            <img src="../images/Travel, tourism agency logo design template (1).png " alt=" TravelVillage">
+                <!-- our title of website -->
+            <h4>Travel Village</h4>
+               <!-- Links to our sections in website -->
+            <div>
+            <a  href="../Home/home.html" target="_blank">Home</a>
+            <a href="../Home/home.html#intro" target="_blank">Inro</a>
+            <a href="../Home/home.html#locations">Destination</a>
+            <a href="../contact/contact.html" target="_blank">Contact</a>
+            <a href="../Feedback/feedback.html" target="_blank">Feedback</a>
+            <a id="r" href="../Register/register.html" target="_blank">Register</a> 
+        </div>
+        </nav>
+        </header>
+        <!-- register section form -->
+     <div class="register">
+        <!-- header of form -->
+        <h1 id="feed" style="text-align: center;color: rgb(0, 0, 0); background-color: aliceblue;">Register Form</h1>
+        <!-- Form data fields -->
+      <form action="reg.php" method="post">
+   
+        <div class="form-group">
+            <label for="a" style="color: white;"> UserName:</label>
+            <input type="text" name="username" id="a" required><br> <br>
+      
+ 
+        </div>
+        <div class="form-group">
+            <label for="e"  style="color: white;"> Email:</label>
+            <input type="email" name="email" id="e" required><br><br>
+      
+        
+        </div>
+        <div class="form-group">
+            <label for="p" style="color: white;">Password:</label>
+            <input type="password" name="password" id="p" required><br><br>
+         
+
+        </div>
+        <div class="form-group">
+            
+        <label for="c" style="color: white;"> Confirm password:</label>
+        <input type="password" name="configpassword" id="e" required><br>
+
+
+       </div>
+    <div class="form">
+        <button type="submit" name='submit' value="Register" >Register</button>
+    </div>
+
+
+
+
+    </form>
+
+   </div>
+         <!-- script section -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script src="script.js"></script>
+
+    
+</body>
+</html>

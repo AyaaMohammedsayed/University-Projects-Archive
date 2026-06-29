@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <!-- Meta data related to website -->
+    <meta charset="UTF-8">
+    <!-- reponsive -->
+    <meta name = "viewport" content = "width=device-width; initial-scale=1.0; maximum-scale">
+        <!-- Title of our website -->
+    <title>Feedback</title>
+        <!-- Our Css for contact -->
+    <link rel="stylesheet" href="feedback.css">
+        <!-- Fonts we use  -->
+    <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Kanit:wght@100;500&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+     
+    <header id="home">
+        <!-- Nav bar of register -->
+      <nav>
+            <!-- our logo -->
+          <img src="../images/Travel, tourism agency logo design template (1).png " alt=" TravelVillage">
+              <!-- our title of website -->
+          <h4>Travel Village</h4>
+             <!-- Links to our sections in website -->
+          <div>
+          <a  href="../Home/home.html" target="_blank">Home</a>
+          <a href="../Home/home.html#intro" target="_blank">Inro</a>
+          <a href="../Home/home.html#locations" target="_blank">Destination</a>
+           <a href="../contact/contact.html" target="_blank">Contact</a>
+          <a href="../Feedback/feedback.html" target="_blank">Feedback</a>
+          <a id="r" href="../Register/register.html" target="_blank">Register</a> 
+      </div>
+      </nav>
+      </header>
+
+      <div class="body">
+          <!-- form section -->
+
+          <section class="Contact">
+            <h2>Feedback!</h2>
+                <form action="">
+                    <div class="input-box" >
+                        <div class="input-field field">
+                            <input type="text" placeholder="Full Name" 
+                            id="name"  class="item" 
+                            autocomplete="off" >
+                            <div class="error-txt"> Full Name can't be blank </div>
+    
+                        </div>
+                        <div class="input-field field">
+                            <input type="email" placeholder="Email Adderss" 
+                            id="email"  class="item" 
+                            autocomplete="off" >
+                  
+                            <div class="error-txt"> Email can't be blank </div>
+    
+                        </div>
+                    </div>
+           
+                    <div class="textarea-field field">
+                        <textarea name="" id="Message" cols="30" rows="10" placeholder="Your message here"  class="item"  autocomplete="off"></textarea>
+               
+                        <div class="error-txt"> Message can't be blank </div>
+                    </div>
+                    <button type="submit"> Send Message</button>
+                </form>
+    
+            </section>
+    
+      </div>
+      <!-- script section -->
+      <script src="https://smtpjs.com/v3/smtp.js">
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- Script for contact form -->
+    <script src=" https://smtpjs.com/v3/smtp.js">
+        function sendEmail()
+        {
+            Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "ayahame99@gmail.com",
+    Password : "B2DBF19EAD093CFACE36F330CA3F39744E0A",
+    To : 'ayahame99@gmail.com',
+    From : document.getElementById("e").Value,
+    Subject : "New contact From Enquiry ",
+    Body : "Name:"+document.getElementById("a").Value+"<br> Email: "+
+    document.getElementById("e").Value+"<br> Message:"+document.getElementById("inputtex").Value
+}).then(
+  message => alert("Message Send Succesfully")
+);
+        }
+
+
+    </script>
+    
+</body>
+</html>
